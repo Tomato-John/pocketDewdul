@@ -23,7 +23,20 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefresh);
 
         // Webview setup
-        webView.setWebViewClient(new WebViewClient());
+        webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                // Only enable refresh on the home page, checking for exact homepage URLs
+                String cleanUrl = url.toLowerCase()
+                    .replace("https://", "")
+                    .replace("http://", "")
+                    .replace("www.", "")
+                    .replaceAll("/$", ""); // Remove trailing slash if present
+                boolean isHomePage = cleanUrl.equals("dewdul.com");
+                swipeRefreshLayout.setEnabled(isHomePage);
+            }
+        });
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDomStorageEnabled(true);
