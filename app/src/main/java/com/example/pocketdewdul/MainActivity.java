@@ -33,8 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace("http://", "")
                     .replace("www.", "")
                     .replaceAll("/$", ""); // Remove trailing slash if present
-                boolean isHomePage = cleanUrl.equals("dewdul.com");
-                swipeRefreshLayout.setEnabled(isHomePage);
+                swipeRefreshLayout.setEnabled(true);
             }
         });
         WebSettings webSettings = webView.getSettings();
